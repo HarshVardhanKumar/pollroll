@@ -1,0 +1,44 @@
+body {
+  margin: 0 ; padding : 0 ;
+}
+#upperheader {
+  display: absolute ;
+  left: 0 ;
+  top: 0 ;
+  background-color: #eee ;
+  box-shadow: 5px 5px 5px #aaa, -5px 5px 5px #aaa, -5px -5px 5px #aaa , 5px -5px 5px #aaa ;
+}
+
+ul li{
+  list-style-type: none ;
+  display: inline-block;
+  border-radius: 5px ;
+  margin-right: 20px ;
+  background-color: green ;
+  padding: 10px 10px ;
+  cursor: pointer;
+}
+ul {
+  display: relative ;
+  margin-left: 80% ;
+  padding: 1.5% 0;
+}
+a {
+  font-size: 0.8em ;
+  color: white ;
+  text-decoration: none ;
+  font-family: helvetica, arial, sans-serif ;
+}
+
+#form {
+  margin: auto ;
+  padding-top : 25% ;
+  padding-bottom: 5% ;
+  border-radius: 20px ;
+  background-color: #eee ;
+  box-shadow: 5px 5px 5px #aaa, 5px -5px 5px #aaa, -5px 5px 5px #aaa, -5px -5px 5px #aaa ;
+}
+
+input {
+  border-radius: 5px ;
+}
