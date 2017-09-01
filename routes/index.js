@@ -15,6 +15,9 @@ router.get('/signup', function(req, res, next) {
 router.get('/main.css', function(req, res, next) {
     res.sendFile(__dirname+'/views/main.css') ;
 })
+router.get('/successSignup', function(req, res, next) {
+    res.sendFile(__dirname+'/views/successSignup.html') ;
+})
 router.post('/successSignup', function(req, res, next) {
   signuplogin.processSignupForm(req, res) ;
 }) ;

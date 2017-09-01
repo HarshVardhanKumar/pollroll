@@ -17,7 +17,7 @@ module.exports.processSignupForm = function (req, res) {
       mongo.connect(mongourl, function(err, db) {
         var collection = db.collection('userforvoting') ;
         collection.insert({"name":fields.Name, "Username": fields.Username, "_id":fields.email, "password":fields.password}) ;
-        res.send("done") ;
+        res.redirect('successSignup') ;
         db.close() ;
       })
     });
