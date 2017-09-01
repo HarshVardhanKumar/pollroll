@@ -1,5 +1,13 @@
 body {
-  margin: 0 ; padding : 0 ;
+  color: white ;
+  font-size:
+  font-family: helvetica, arial, sans-serif;
+  margin: 0 ;
+  padding : 0 ;
+}
+label {
+  font-size: 0.8em ;
+  color: black ;
 }
 #upperheader {
   display: absolute ;

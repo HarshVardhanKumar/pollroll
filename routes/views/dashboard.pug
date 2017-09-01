@@ -1,4 +1,14 @@
 html
   include head.pug
   body
-    h1= message
+  #upperheader
+    ul
+      li: =user
+      li: a#logout(href='/logout') Logout
+  h4(id='notification')=message
+  #useroptions
+    ul
+      li: a(href='/createPoll') Create a New Poll
+      li: a(href='/myPolls') MyPolls
+      li: a(href='/seeActivePolls') See Active Polls
+      li: a(href='/seeResultsofmypolls') See Results Of My Polls
