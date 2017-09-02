@@ -1,5 +1,10 @@
 html
-  include head.pug
+  head
+    style
+      include main.css
+    script
+      include polllisthandler.js
+    script(src="https://code.jquery.com/jquery-1.11.3.min.js")
   body
   #upperheader
     ul
@@ -12,3 +17,5 @@ html
       li: a(href='/myPolls') MyPolls
       li: a(href='/seeActivePolls') See Active Polls
       li: a(href='/seeResultsofmypolls') See Results Of My Polls
+
+  #pollList

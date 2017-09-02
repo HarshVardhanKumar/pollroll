@@ -18,6 +18,7 @@ module.exports.processSignupForm = function (req, res) {
 
     form.on('end', function () {
       mongo.connect(mongourl, function(err, db) {
+        // for putting the user information into the database
         var collection = db.collection('userforvoting') ;
         collection.insert({"name":fields.Name, "Username": fields.Username, "_id":fields.email, "password":fields.password}) ;
         res.redirect('successSignup') ;
@@ -36,15 +37,19 @@ module.exports.processLoginForm = function(req, res) {
   });
   form.on('end', function() {
     mongo.connect(mongourl, function(err, db) {
-      var collection = db.collection('userforvoting') ;
+      // for finding the user information for login
+      collection = db.collection('userforvoting') ;
+      // finding the user name exists or not
       collection.find({"Username": fields.Username}).toArray(function(err, docs) {
         if(err) {
           res.end("Some error occurred") ;
           db.close() ;
         }
+        // matching the password
         var password = fields.password ;
         if(docs[0]["password"] === password) {
           req.session.name = docs[0]["name"] ;
+          req.session.username = fields.Username ;
           db.close() ;
           res.render(__dirname+"/views/dashboard", {title: docs[0]["name"], message:" ", user: docs[0]["name"]}) ;
         }
