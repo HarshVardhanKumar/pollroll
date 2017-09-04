@@ -18,12 +18,15 @@ module.exports.createPoll = function (req, res) {
         var collection = db.collection('pollscreated') ;
         var options = fields.options.split(';') ;
         console.log(options) ;
-
+        let objectpoll = {} ;
+        objectpoll["title"] = fields.title.trim() ;
+        objectpoll["Username"] = req.session.username.trim() ;
+        objectpoll["options"] = fields.options.trim() ;
         var string = "" ;
         for(var i = 0 ; i<options.length ; i++) {
-          string+=options[i]+": 0," ;
+          objectpoll[options[i].trim()] = 0 ;
         }
-        collection.insert({"Username": req.session.username,"title":fields.title, "options": fields.options, string}) ;
+        collection.insert(objectpoll) ;
         res.render(__dirname+"/views/dashboard", {title: "created a new poll", message: 'A new poll created!', user: req.session.name}) ;
         db.close() ;
       })
@@ -42,11 +45,49 @@ module.exports.viewPoll = function(req, res, title) {
         db.close() ;
       }
       req.session.polltitle = title ;
-      req.session.polloptions = docs ;
+      req.session.polloptions = docs[0]["options"].split(';') ;
+      req.session.options = docs[0]["options"] ;
       console.log(title) ;
-      console.log(docs) ;
-      res.end() ;
+      console.log(req.session.polloptions) ;
+      res.end()
       db.close() ;
     })
   })
+}
+
+module.exports.updatePollResults = function(req, res, results) {
+  let title1 = results["title"] ;
+  let result = results["result"]+"" ;
+  let newv = results["new"] ; // if new option has been added
+  console.log("result is "+result) ;
+  console.log("newv is "+newv) ;
+  console.log(typeof(result)) ;
+  mongo.connect(mongourl, function(err, db) {
+    let collection = db.collection('pollscreated') ;
+    if(newv==="false") {
+      collection.update({"title" : title1}, {$inc: {[result]: 1}}, function(err, docs) {
+        if(err) {
+          console.log(err) ;
+        }
+        db.close() ;
+      })
+    }
+    else {
+      result = result.substring(0,result.length) ;
+      var option = req.session.options+";"+result ;
+      console.log(option) ;
+      console.log(result) ;
+      collection.update({"title": title1}, {$set: {[result]: 1, "options": option}}, function(err, docs) {
+        if(err) {
+          console.log(err) ;
+        }
+        else {
+          req.session.options = option; 
+        }
+        db.close() ;
+      })
+    }
+    db.close() ;
+  })
+  res.send("done !") ; ////////////////////////
 }

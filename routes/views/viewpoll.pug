@@ -1,6 +1,19 @@
 html
 head
   script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+  script
+    include viewpoll.js
 body
   div(id="polltitle")
     h2=titlevalue
+    -var value= docs
+    select(id='select')
+      each val in value
+        option #{val}
+    br
+    h2 Please enter your own option if you do not like the given options
+    br
+    input(type="text", name="otherOption", id="otherOption")
+    br
+    br
+    input(type="submit", onclick="sendSelectedOption()")

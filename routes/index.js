@@ -14,13 +14,14 @@ router.use(session({
   resave: false,
   saveUninitialized: true
 }))
-
+router.use(bodyParser.json()) ; // useful for parsing the ajax post data
 router.use(function (req, res, next) {
   if (!req.session.name) {
-    req.session.name = " " ;
+    req.session.name = " " ; // used for rendering dashboard.pug
     req.session.username = " ";
-    req.session.polltitle = "title" ;
-    req.session.polloptions = [] ;
+    req.session.polltitle = "title" ; // used for rendering the viewpoll.pug
+    req.session.polloptions = [] ;// used for rendering the viewpoll.pug
+    req.session.options = " " ;
   }
   next()
 })
@@ -42,13 +43,13 @@ router.get('/successSignup', function(req, res, next) {
     res.sendFile(__dirname+'/views/successSignup.html') ;
 });
 router.get('/logout', function(req, res, next) {
-    req.session.destroy(function(err) {
+    req.session.destroy(function(err) { // after logout, destroy session
       res.redirect('/') ;
     })
 });
 router.get('/createPoll', function(req, res, next) {
     res.render(__dirname+'/views/createpoll', {title: req.session.name ,user: req.session.name})
-    //res.end(req.session.name) ;
+    // used to create a new poll by a loggedin user
 })
 
 // provides an api for the front end to get the list of available polls
@@ -64,16 +65,19 @@ router.get('/getPolls', function(req, res, next){
 
 // this is called by front-end after posting the value of polltitle to poll.js
 router.get('/viewPoll', function(req, res, next) {
-  res.render(__dirname+"/views/viewpoll", {titlevalue: req.session.polltitle});
-})
+  res.render(__dirname+"/views/viewpoll", {titlevalue: req.session.polltitle, docs: req.session.polloptions});
+});
+
+// called after the verification of signup form
 router.post('/successSignup', function(req, res, next) {
-  signuplogin.processSignupForm(req, res) ;
+  signuplogin.processSignupForm(req, res) ; // creates a new user in the database
 }) ;
 
+// called after the verification of login form. The method called verifies if the user exists or not.
 router.post('/dashboard', function(req, res, next) {
    signuplogin.processLoginForm(req, res) ;
 })
-// called from
+// called from dashboard. Used to process the poll information
 router.post('/createPoll', function(req,  res, next) {
   poll.createPoll(req, res)  ;
 });
@@ -85,9 +89,13 @@ router.post('/viewPoll', function(req, res, next) {
   poll.viewPoll(req, res, title1) ;
 })
 
-router.use(bodyParser.json()) ;
 // called from viewpoll.pug after a user has voted. this is used to update the data on the polls.
 router.post('/pollResult', function(req, res, next) {
   console.log('received json is '+JSON.stringify(req.body)) ;
-})
+});
+
+router.post('/receiveResults', function(req, res, next) {
+  console.log("received results is "+JSON.stringify(req.body)) ;
+  poll.updatePollResults(req, res, req.body) ;
+});
 module.exports = router;
