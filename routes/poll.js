@@ -45,8 +45,19 @@ module.exports.viewPoll = function(req, res, title) {
         db.close() ;
       }
       req.session.polltitle = title ;
-      req.session.polloptions = docs[0]["options"].split(';') ;
-      req.session.options = docs[0]["options"] ;
+      let options = "" ;
+      // creating req.session.options using the available options from the database.
+      // this can also be created using the options field in the database, but doing so would not be faster, because the time taken to load the document
+      // from the database would be same.
+
+      for(let property in docs[0]) {
+        if(property.toString()!=="_id" && property.toString()!=="Username" && property.toString()!=="title" && property.toString()!=="options") {
+          options+=property.toString()+";" ;
+          console.log("property found is "+property) ;
+        }
+      }
+      req.session.options = options.substring(0, options.length-1);
+      req.session.polloptions = req.session.options.split(';') ;
       console.log(title) ;
       console.log(req.session.polloptions) ;
       res.end()
@@ -73,21 +84,32 @@ module.exports.updatePollResults = function(req, res, results) {
       })
     }
     else {
-      result = result.substring(0,result.length) ;
-      var option = req.session.options+";"+result ;
+      var option = req.session.options+";"+result; // for updating the req.session.options, you must reload the poll page.
       console.log(option) ;
       console.log(result) ;
       collection.update({"title": title1}, {$set: {[result]: 1, "options": option}}, function(err, docs) {
         if(err) {
           console.log(err) ;
         }
-        else {
-          req.session.options = option; 
-        }
+        console.log("added"+option) ;
         db.close() ;
       })
     }
     db.close() ;
   })
   res.send("done !") ; ////////////////////////
+}
+
+module.exports.getPollResultDetails = function(req, res, title) {
+  mongo.connect(mongourl, function(err, db) {
+    let collection = db.collection('pollscreated') ;
+    collection.find({"title": title}).toArray(function(err, docs) {
+      if(err) {
+        res.end() ;
+        db.close() ;
+      }
+      res.jsonp(docs[0]) ;
+      db.close() ;
+    })
+  })
 }

@@ -31,6 +31,7 @@ ul {
   margin-left: 80% ;
   padding: 1.5% 0;
 }
+
 a {
   font-size: 0.8em ;
   color: white ;
@@ -52,4 +53,30 @@ input {
 }
 .poll {
   color: black ;
+}
+
+#pollresults {
+  width: 80% ;
+  background-color: #eee ;
+  margin-top: 5% ;
+  color: black ;
+}
+#poll, #results {
+  float: left ;
+  padding: 5% ;
+}
+#results {
+  margin: auto;
+  display: none ;
+  text-align: center;
+}
+canvas {
+  width:80vw !important;
+  height:70vh !important;
+}
+#voteagain {
+  color: black ;
+  font-size: 1.5em;
+  padding: 20px 80px;
+  margin-top: 50px ;
 }

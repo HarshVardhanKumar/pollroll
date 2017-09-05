@@ -51,6 +51,9 @@ router.get('/createPoll', function(req, res, next) {
     res.render(__dirname+'/views/createpoll', {title: req.session.name ,user: req.session.name})
     // used to create a new poll by a loggedin user
 })
+router.get('/dashboard', function(req, res, next) {
+  res.render(__dirname+"/views/dashboard", {title: 'dashboard', message:" ", user: req.session.username}) ;
+})
 
 // provides an api for the front end to get the list of available polls
 router.get('/getPolls', function(req, res, next){
@@ -67,6 +70,11 @@ router.get('/getPolls', function(req, res, next){
 router.get('/viewPoll', function(req, res, next) {
   res.render(__dirname+"/views/viewpoll", {titlevalue: req.session.polltitle, docs: req.session.polloptions});
 });
+// this is used to get the results of a poll
+router.get('/getResults/:titleofpoll', function(req, res, next) {
+  let title = req.params.titleofpoll ;
+  poll.getPollResultDetails(req,res,title) ;
+})
 
 // called after the verification of signup form
 router.post('/successSignup', function(req, res, next) {
