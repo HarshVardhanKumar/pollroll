@@ -22,6 +22,7 @@ router.use(function (req, res, next) {
     req.session.polltitle = "title" ; // used for rendering the viewpoll.pug
     req.session.polloptions = [] ;// used for rendering the viewpoll.pug
     req.session.options = " " ;
+    req.session.current = "unauthorized" ; // distinguishes between the requests of an authorized and unauthorized users.
   }
   next()
 })
@@ -52,7 +53,9 @@ router.get('/createPoll', function(req, res, next) {
     // used to create a new poll by a loggedin user
 })
 router.get('/dashboard', function(req, res, next) {
-  res.render(__dirname+"/views/dashboard", {title: 'dashboard', message:" ", user: req.session.username}) ;
+  if(req.session.current==="authorized")
+    res.render(__dirname+"/views/dashboard", {title: 'dashboard', message:" ", user: req.session.username}) ;
+  else res.redirect('udashboard') ;
 })
 
 // provides an api for the front end to get the list of available polls
@@ -68,14 +71,17 @@ router.get('/getPolls', function(req, res, next){
 
 // this is called by front-end after posting the value of polltitle to poll.js
 router.get('/viewPoll', function(req, res, next) {
-  res.render(__dirname+"/views/viewpoll", {titlevalue: req.session.polltitle, docs: req.session.polloptions});
+  res.render(__dirname+"/views/viewpoll", {titlevalue: req.session.polltitle,user: req.session.username, docs: req.session.polloptions});
 });
 // this is used to get the results of a poll
 router.get('/getResults/:titleofpoll', function(req, res, next) {
   let title = req.params.titleofpoll ;
   poll.getPollResultDetails(req,res,title) ;
 })
-
+// serves the dashboard for unauthorized
+router.get('/udashboard', function(req, res) {
+  res.render(__dirname+"/views/udashboard") ;
+})
 // called after the verification of signup form
 router.post('/successSignup', function(req, res, next) {
   signuplogin.processSignupForm(req, res) ; // creates a new user in the database
@@ -85,6 +91,7 @@ router.post('/successSignup', function(req, res, next) {
 router.post('/dashboard', function(req, res, next) {
    signuplogin.processLoginForm(req, res) ;
 })
+
 // called from dashboard. Used to process the poll information
 router.post('/createPoll', function(req,  res, next) {
   poll.createPoll(req, res)  ;

@@ -22,7 +22,6 @@ function getPolls() {
 }
 
 function listSelect (title) {
-  alert(title) ;
   var data = {} ;
   data["title"] = title ;
   $.ajax({
@@ -31,7 +30,7 @@ function listSelect (title) {
     contentType: 'application/json',
     data: JSON.stringify(data),
     success: function() {
-      alert('') ;
+      // show some progress spinner
       window.location = "/viewPoll" ;
     }
   })

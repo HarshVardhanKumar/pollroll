@@ -1,0 +1,13 @@
+html
+  head
+    style
+      include main.css
+    script
+      include polllisthandler.js
+    script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+  body
+  #upperheader
+    ul
+      li: a#login(href='/login') Login
+      li: a#logout(href='/logout') Logout
+  #pollList

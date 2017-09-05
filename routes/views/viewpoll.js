@@ -15,7 +15,7 @@ function sendSelectedOption() {
   datav["title"] = title ;
   datav["new"] = newv ;
   console.log(newv) ;
-  
+
   $.ajax({
     url : 'receiveResults',
     type: 'POST',
@@ -82,4 +82,8 @@ function sendSelectedOption() {
       })
     }
   }) ;
+}
+
+function processVoteAgain() {
+  
 }
