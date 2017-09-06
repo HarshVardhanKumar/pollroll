@@ -2,7 +2,7 @@
 window.onload = getPolls ;
 function getPolls() {
   $.ajax({
-    url : 'getPolls',
+    url : 'myPolls',
     method: "GET",
     dataType: 'jsonp',
     success: function(data) {
@@ -12,8 +12,9 @@ function getPolls() {
       let string = "" ;
       for(var i = 0 ;  i<data.length; i++) {
         let title = data[i]["title"] ;
-        string += '<li class="poll" onclick="listSelect(\''+title.toString()+'\')">'+data[i]["title"]+'</li><hr>';
+        string += '<li class="mypolls" onclick="listSelect(\''+title.toString()+'\')"><div class = "mypolls">'+data[i]["title"]+'</div><button onclick="delete()">Delete</button><button onclick="share()">Share</button></li><hr>';
       }
+      //<li><div>Title</div><div><button>Delete</button><button>Share</button></div></li>
       ul.innerHTML = string ;
       div.innerHTML+="<ul>"+string+"</ul>" ;
       console.log(div.innerHTML) ;

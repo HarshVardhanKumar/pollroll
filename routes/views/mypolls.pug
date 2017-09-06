@@ -4,7 +4,7 @@ html
     style
       include main.css
     script
-      include polllisthandler.js
+      include mypolls.js
     script(src="https://code.jquery.com/jquery-1.11.3.min.js")
   body
   #upperheader
@@ -15,8 +15,8 @@ html
   #useroptions
     ul(class="upperbuttonsleft")
       li: a(href='/createPoll') Create a New Poll
-      li: a(href='/myPolls') MyPolls
+      li: a(href='/dashboard') Dashboard
     br
-    p Active Polls
+    p Your Polls
     hr
   #pollList

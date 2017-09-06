@@ -1,12 +1,13 @@
 <html>
   <head>
     <link rel = "stylesheet" href = "main.css">
+    <title>Pollroll-Login </title>
   </head>
   <body>
     <div id = "upperheader">
-      <ul>
-        <li><a id = "login" href = "/login">LogIn</a></li>
-        <li><a id = "signup" href = "/signup">SignUp</a></li>
+      <p id = "titlename">Pollroll</p>
+      <ul class="upperbuttons">
+        <li><a id = "signup" href = "/signup" class="upperbutton2">SignUp</a></li>
       </ul>
     </div>
 
@@ -15,7 +16,6 @@
         <label for="Username">Username : </label>
         <input type="text" id = "Username" name="Username" placeholder="Enter your username" oninput="testUsername()">
         <br>
-
         <label for="password">Password : </label>
         <input type = "password" id = "password" name="password" placeholder="Enter your password" oninput="testPassword()">
         <br>

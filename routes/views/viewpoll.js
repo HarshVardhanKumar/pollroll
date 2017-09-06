@@ -83,7 +83,3 @@ function sendSelectedOption() {
     }
   }) ;
 }
-
-function processVoteAgain() {
-  
-}

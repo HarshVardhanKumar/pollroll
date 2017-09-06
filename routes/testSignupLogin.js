@@ -51,7 +51,7 @@ module.exports.processLoginForm = function(req, res) {
           req.session.name = docs[0]["name"] ;
           req.session.username = fields.Username ;
           db.close() ;
-          req.session.current = "authorized" ;
+          req.session.usertype = "authorized" ;
           res.render(__dirname+"/views/dashboard", {title: docs[0]["name"], message:" ", user: docs[0]["name"]}) ;
         }
         else {

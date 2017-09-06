@@ -22,7 +22,7 @@ router.use(function (req, res, next) {
     req.session.polltitle = "title" ; // used for rendering the viewpoll.pug
     req.session.polloptions = [] ;// used for rendering the viewpoll.pug
     req.session.options = " " ;
-    req.session.current = "unauthorized" ; // distinguishes between the requests of an authorized and unauthorized users.
+    req.session.usertype = "unauthorized" ; // distinguishes between the requests of an authorized and unauthorized users.
   }
   next()
 })
@@ -53,7 +53,7 @@ router.get('/createPoll', function(req, res, next) {
     // used to create a new poll by a loggedin user
 })
 router.get('/dashboard', function(req, res, next) {
-  if(req.session.current==="authorized")
+  if(req.session.usertype==="authorized")
     res.render(__dirname+"/views/dashboard", {title: 'dashboard', message:" ", user: req.session.username}) ;
   else res.redirect('udashboard') ;
 })
@@ -67,12 +67,25 @@ router.get('/getPolls', function(req, res, next){
         db.close() ;
       })
     }) ;
-})
-
+});
 // this is called by front-end after posting the value of polltitle to poll.js
 router.get('/viewPoll', function(req, res, next) {
   res.render(__dirname+"/views/viewpoll", {titlevalue: req.session.polltitle,user: req.session.username, docs: req.session.polloptions});
 });
+// provides the logo image
+router.get('/logo.png', function(req, res, next) {
+    res.sendFile(__dirname+'/views/logo.png') ;
+})
+// provides an api for the front-end to get the list of available polls created by a user.
+router.get('/myPolls', function(req, res, next) {
+  mongo.connect(mongourl, function(err, db) {
+    let collection = db.collection('pollscreated') ;
+    collection.find({"Username":req.session.username}).toArray(function(err, docs) {
+      res.jsonp(docs) ;
+      db.close() ;
+    })
+  })
+})
 // this is used to get the results of a poll
 router.get('/getResults/:titleofpoll', function(req, res, next) {
   let title = req.params.titleofpoll ;
