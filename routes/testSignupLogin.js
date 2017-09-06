@@ -41,8 +41,9 @@ module.exports.processLoginForm = function(req, res) {
       collection = db.collection('userforvoting') ;
       // finding the user name exists or not
       collection.find({"Username": fields.Username}).toArray(function(err, docs) {
-        if(err) {
-          res.end("Some error occurred") ;
+        if(err || docs[0]===undefined) {
+          alert('The user does not exit\nPlease Signup.')
+          res.redirect('/signup') ;
           db.close() ;
         }
         // matching the password
