@@ -32,10 +32,10 @@ router.get('/', function(req, res, next) {
     res.sendFile(__dirname+'/views/index.html') ;
 });
 router.get('/login', function(req, res, next) {
-    res.sendFile(__dirname+'/views/login.html');
+    res.render(__dirname+'/views/login', {message: " "});
 }) ;
 router.get('/signup', function(req, res, next) {
-    res.sendFile(__dirname+'/views/signup.html') ;
+    res.render(__dirname+'/views/signup', {message: " "}) ;
 });
 router.get('/main.css', function(req, res, next) {
     res.sendFile(__dirname+'/views/main.css') ;
@@ -91,9 +91,20 @@ router.get('/getResults/:titleofpoll', function(req, res, next) {
   let title = req.params.titleofpoll ;
   poll.getPollResultDetails(req,res,title) ;
 })
+router.get('/showMyPolls', function(req, res, next) {
+  res.render(__dirname+'/views/mypolls', {user: req.session.username, message: " "}) ;
+})
 // serves the dashboard for unauthorized
 router.get('/udashboard', function(req, res) {
   res.render(__dirname+"/views/udashboard") ;
+})
+// for directly accessing the polls through a unique link
+router.get('/poll/:polltitle', function(req, res) {
+  var polltitle = req.params.polltitle ;
+  while(polltitle.indexOf('_')!=-1) {
+    polltitle = polltitle.replace("_", " ") ;
+  }
+  poll.processRequestForPolls(req,res,polltitle) ;
 })
 // called after the verification of signup form
 router.post('/successSignup', function(req, res, next) {
@@ -122,8 +133,17 @@ router.post('/pollResult', function(req, res, next) {
   console.log('received json is '+JSON.stringify(req.body)) ;
 });
 
-router.post('/receiveResults', function(req, res, next) {
+router.post('/poll/receiveResults', function(req, res, next) {
   console.log("received results is "+JSON.stringify(req.body)) ;
   poll.updatePollResults(req, res, req.body) ;
 });
+// for deleting the polls by verified user
+
+router.post('/delete/:polltitle', function(req, res) {
+  let polltitle = req.params.polltitle ;
+  while(polltitle.indexOf('_')!=-1) {
+    polltitle = polltitle.replace("_", " ") ;
+  }
+  poll.deletePoll(req, res, polltitle)  ;
+})
 module.exports = router;

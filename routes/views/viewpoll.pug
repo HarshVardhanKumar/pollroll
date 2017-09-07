@@ -1,5 +1,6 @@
 html
 head
+  title=titlevalue
   script(src="https://code.jquery.com/jquery-1.11.3.min.js")
   script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js")
   script
@@ -7,19 +8,15 @@ head
   style
     include main.css
 body
-  #upperheader
-    ul
-      li: =user
-      li: a#logout(href='/logout') Logout
   div(id="pollresults")
     div(id="poll")
-      h2=titlevalue
+      h1=titlevalue
       -var value= docs
       select(id='select')
         each val in value
           option #{val}
       br
-      h2 Please enter your own option if you do not like the given options
+      h4 Please enter your own option if you do not like the given options
       br
       input(type="text", name="otherOption", id="otherOption")
       br
@@ -27,4 +24,4 @@ body
       input(type="submit", onclick="sendSelectedOption()")
     div(id="results")
       canvas(id="resultc",width='200px' , height= '200px')
-      a(id="voteagain",href="dashboard") Vote again
+      a(id="voteagain",href="dashboard") See other polls

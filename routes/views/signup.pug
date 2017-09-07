@@ -1,0 +1,27 @@
+html
+  head
+    style
+      include main.css
+    script
+      include signup.js
+    title Pollroll-SignUp
+  body
+    h4(class="notification")=message
+    div(id="upperheader")
+      ul(class="upperbuttons")
+        li: a(id = "logout" href = "/logout") Logout
+    div(id="signupform")
+      form(action="/successSignup",method="post",enctype="multipart/form-data")
+        label(for="Name") Name :
+        input(type="text",id="Name",name="Name",placeholder="Enter your full name")
+        br
+        label(for="Username") Username :
+        input(type="text",id="Username",name="Username",placeholder="Enter your desired username",oninput="testUsername()")
+        br
+        label(for="email") Email-Id :
+        input(type="text",id="email",name="email",placeholder="Please enter a valid email id",oninput="testEmail()")
+        br
+        label(for="password") Password :
+        input(type="password",id="password",name="password",placeholder="Enter a strong password",oninput="testPassword()")
+        br
+        input(type="submit",onclick="testSubmit()")

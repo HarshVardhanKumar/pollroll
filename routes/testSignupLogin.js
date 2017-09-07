@@ -17,18 +17,34 @@ module.exports.processSignupForm = function (req, res) {
     });
 
     form.on('end', function () {
-      mongo.connect(mongourl, function(err, db) {
-        // for putting the user information into the database
-        var collection = db.collection('userforvoting') ;
-        collection.insert({"name":fields.Name, "Username": fields.Username, "_id":fields.email, "password":fields.password}) ;
-        res.redirect('successSignup') ;
-        db.close() ;
-      })
+      if(!testIfUserExists(fields.email)) {
+        mongo.connect(mongourl, function(err, db) {
+          // for putting the user information into the database
+          var collection = db.collection('userforvoting') ;
+          collection.insert({"name":fields.Name, "Username": fields.Username, "_id":fields.email, "password":fields.password}) ;
+          res.redirect('successSignup') ;
+          db.close() ;
+        })
+      }
+      else {
+        res.render(__dirname+'/views/signup', {message: "The user already exists"})
+      }
     });
-
     form.parse(req);
 }
 
+function testIfUserExists(id) {
+  mongo.connect(mongourl, function(err, db) {
+    let collection = db.collection('userforvoting') ;
+    collection.find({"_id": id}).toArray(function(err, docs) {
+      if(err || docs.length>0) {
+        return true ;
+      }
+      db.close() ;
+    })
+  })
+  return false ;
+}
 module.exports.processLoginForm = function(req, res) {
   let fields = {} ;
   var form = new formidable.IncomingForm() ;
@@ -42,22 +58,25 @@ module.exports.processLoginForm = function(req, res) {
       // finding the user name exists or not
       collection.find({"Username": fields.Username}).toArray(function(err, docs) {
         if(err || docs[0]===undefined) {
-          alert('The user does not exit\nPlease Signup.')
-          res.redirect('/signup') ;
+          req.session.destroy(function(err) { // after logout, destroy session
+            res.render(__dirname+'/views/login', {message: "The user does not exist"}) ;
+          })
           db.close() ;
-        }
-        // matching the password
-        var password = fields.password ;
-        if(docs[0]["password"] === password) {
-          req.session.name = docs[0]["name"] ;
-          req.session.username = fields.Username ;
-          db.close() ;
-          req.session.usertype = "authorized" ;
-          res.render(__dirname+"/views/dashboard", {title: docs[0]["name"], message:" ", user: docs[0]["name"]}) ;
         }
         else {
-          res.end("not found") ;
-          db.close() ;
+          // matching the password
+          var password = fields.password ;
+          if(docs[0]["password"] === password) {
+            req.session.name = docs[0]["name"] ;
+            req.session.username = fields.Username ;
+            db.close() ;
+            req.session.usertype = "authorized" ;
+            res.render(__dirname+"/views/dashboard", {title: docs[0]["name"], message:" ", user: docs[0]["name"]}) ;
+          }
+          else {
+            res.render(__dirname+'/views/login', {message: "Wrong password "}) ;
+            db.close() ;
+          }
         }
 
       })

@@ -113,3 +113,39 @@ module.exports.getPollResultDetails = function(req, res, title) {
     })
   })
 }
+
+module.exports.processRequestForPolls = function(req, res, polltitle) {
+  mongo.connect(mongourl, function(err, db) {
+    let collection = db.collection('pollscreated') ;
+    collection.find({"title": polltitle}).toArray(function(err, docs) {
+      if(err) {
+        // poll is not found
+        res.end("The requested poll is not available") ;
+      }
+      else {
+        let options = [] ;
+        for(let property in docs[0]) {
+          if(property.toString()!=="_id" && property.toString()!=="Username" && property.toString()!=="title" && property.toString()!=="options") {
+            options.push(property.toString()) ;
+          }
+        }
+        res.render(__dirname+'/views/viewpoll', {titlevalue: polltitle, docs: options}) ;
+      }
+    })
+  })
+}
+
+module.exports.deletePoll = function(req, res, polltitle) {
+  mongo.connect(mongourl, function(err, db) {
+    let collection = db.collection('pollscreated') ;
+    collection.remove({"title": polltitle}, function(err, data) {
+      if(err) {
+        // cannot be removed ;
+      }
+      else {
+        res.end() ;
+        db.close() ;
+      }
+    }) ;
+  })
+}

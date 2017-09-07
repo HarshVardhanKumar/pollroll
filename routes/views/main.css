@@ -57,6 +57,7 @@ a {
   font-size: 0.8em ;
   color: white ;
   text-decoration: none ;
+  margin: auto;
 }
 
 ul li {
@@ -115,15 +116,17 @@ input[type=submit]:hover {
 }
 
 #pollresults {
-  width: 80% ;
   background-color: #ddd ;
   margin-top: 1.0% ;
   color: black ;
+  margin: auto;
+  text-align: center;
 }
 #poll, #results {
-  float: left ;
   padding: 2% ;
   margin: auto;
+  text-align: center;
+  margin-top: 20vh ;
 }
 #results {
   margin: auto;
@@ -131,16 +134,17 @@ input[type=submit]:hover {
   text-align: center;
 }
 canvas {
-  width:500px !important;
-  height:700px !important;
-  margin: auto;
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 85vw !important;
+    height: 78vh !important ;
 }
 /*#unauthorized is the button in the index.html for accessing the polls for the unauthorized users*/
 /* #voteagain is the button in the viewpoll.pug for showing the polls in order to vote again*/
 #voteagain, #unauthorized {
-  text-align: center;
+  display: inline-block;
   margin: auto;
-  display: block;
   color: white ;
   font-size: 1em ;
   padding: 20px 20px;
@@ -151,7 +155,7 @@ canvas {
 /*Used in index.html Shows the logo of the website*/
 #mainLogo {
   margin: auto ;
-  margin-top: 2% ;
+  margin-top: 20vh ;
   width: 90vw ;
   text-align: center;
 }
@@ -182,11 +186,47 @@ canvas {
   font-size: 1.4em ;
   padding: 10px ;
   border-radius: 10px ;
-  background-color: #f22ff2 ;
+  background-color: #e3e7ed ;
   cursor: pointer;
 }
 #polllist {
   margin: auto;
   text-align: center;
   padding: 20px ;
+}
+.mypolls {
+  list-style-type: none ;
+  margin: 20px ;
+}
+/* During wrong login attemps*/
+.notification {
+  color: red ;
+  font-family: helvetica, arial, sans-serif;
+  margin: auto;
+  text-align: center;
+}
+
+.upperpartofmypolls div{
+  margin-right: 20px ;
+  padding: 10px ;
+}
+
+.deletebutton {
+  padding: 10px 15px ;
+  color: red ;
+  display: inline-block;
+  font-family: helvetica, arial, sans-serif ;
+  font-size: 0.9em ;
+  transition: all 1s ;
+  -moz-transition: all 1s ;
+  -o-transition: all 1s ;
+  -webkit-transition: all 1s ;
+  margin: auto;
+  text-align: center ;
+  border-radius: 10px ;
+  cursor: pointer;
+}
+.deletebutton:hover {
+  background-color: red ;
+  color: white ;
 }
