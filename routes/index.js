@@ -32,7 +32,9 @@ router.get('/', function(req, res, next) {
     res.sendFile(__dirname+'/views/index.html') ;
 });
 router.get('/login', function(req, res, next) {
-    res.render(__dirname+'/views/login', {message: " "});
+  req.session.destroy(function(err) {
+    res.render(__dirname+'/views/login', {message: " "})
+  })
 }) ;
 router.get('/signup', function(req, res, next) {
     res.render(__dirname+'/views/signup', {message: " "}) ;
@@ -75,6 +77,9 @@ router.get('/viewPoll', function(req, res, next) {
 // provides the logo image
 router.get('/logo.png', function(req, res, next) {
     res.sendFile(__dirname+'/views/logo.png') ;
+})
+router.get('/logo.jpg', function(req, res) {
+    res.sendFile(__dirname+'/views/logo.jpg') ;
 })
 // provides an api for the front-end to get the list of available polls created by a user.
 router.get('/myPolls', function(req, res, next) {

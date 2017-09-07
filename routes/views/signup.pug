@@ -6,10 +6,10 @@ html
       include signup.js
     title Pollroll-SignUp
   body
-    h4(class="notification")=message
     div(id="upperheader")
       ul(class="upperbuttons")
         li: a(id = "logout" href = "/logout") Logout
+    h4(class="notification")=message
     div(id="signupform")
       form(action="/successSignup",method="post",enctype="multipart/form-data")
         label(for="Name") Name :

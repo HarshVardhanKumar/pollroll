@@ -1,5 +1,5 @@
 // this file contains methods for handling the poll list . It uses the #polllist div element defined in the html file to create a list of available poll dynamically.
-var baseurl = "localhost:3000/poll" ;
+var baseurl = "pollroll.herokuapp.com/poll" ;
 window.onload = getPolls ;
 function getPolls() {
   $.ajax({

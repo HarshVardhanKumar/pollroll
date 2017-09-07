@@ -17,18 +17,21 @@ module.exports.processSignupForm = function (req, res) {
     });
 
     form.on('end', function () {
-      if(!testIfUserExists(fields.email)) {
-        mongo.connect(mongourl, function(err, db) {
-          // for putting the user information into the database
-          var collection = db.collection('userforvoting') ;
-          collection.insert({"name":fields.Name, "Username": fields.Username, "_id":fields.email, "password":fields.password}) ;
-          res.redirect('successSignup') ;
-          db.close() ;
+      mongo.connect(mongourl, function(err, db) {
+        let collection = db.collection('userforvoting') ;
+        collection.find({"_id":fields.email}).toArray(function(err, docs) {
+          if(docs.length<1) {
+            collection.insert({"name":fields.Name, "Username": fields.Username, "_id":fields.email, "password":fields.password}) ;
+            res.redirect('successSignup') ;
+            db.close() ;
+          }
+          else {
+            res.render(__dirname+'/views/signup', {message: "This email has already been used"})
+            db.close() ;
+          }
         })
-      }
-      else {
-        res.render(__dirname+'/views/signup', {message: "The user already exists"})
-      }
+      })
+      //////////
     });
     form.parse(req);
 }
@@ -38,6 +41,7 @@ function testIfUserExists(id) {
     let collection = db.collection('userforvoting') ;
     collection.find({"_id": id}).toArray(function(err, docs) {
       if(err || docs.length>0) {
+        console.log("called to test") ;
         return true ;
       }
       db.close() ;
