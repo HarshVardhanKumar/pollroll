@@ -43,6 +43,9 @@ label {
   margin-left: 70% ;
   padding: 1.5% 0;
 }
+select {
+  background-color: white ;
+}
 /* Used in dashboard.pug to show the authorized user options*/
 .upperbuttonsleft li{
   list-style-type: none ;
