@@ -17,7 +17,7 @@ function sendSelectedOption() {
   console.log(newv) ;
 
   $.ajax({
-    url : 'poll/receiveResults',
+    url : '/receiveResults',
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify(datav),

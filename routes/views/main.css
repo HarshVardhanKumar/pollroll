@@ -212,6 +212,10 @@ canvas {
 .mypolls {
   list-style-type: none ;
   margin: 20px ;
+  background-color: #f2f2f2 ;
+}
+hr {
+  width: 5px ;
 }
 /* During wrong login attemps*/
 .notification {
