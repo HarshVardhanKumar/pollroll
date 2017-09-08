@@ -106,7 +106,8 @@ router.get('/udashboard', function(req, res) {
 // for directly accessing the polls through a unique link
 router.get('/poll/:polltitle', function(req, res) {
   var polltitle = req.params.polltitle ;
-  while(polltitle.indexOf('_')!=-1) {
+  whil
+  e(polltitle.indexOf('_')!=-1) {
     polltitle = polltitle.replace("_", " ") ;
   }
   poll.processRequestForPolls(req,res,polltitle) ;
@@ -142,6 +143,9 @@ router.post('/poll/receiveResults', function(req, res, next) {
   console.log("received results is "+JSON.stringify(req.body)) ;
   poll.updatePollResults(req, res, req.body) ;
 });
+router.post('/poll/poll/receiveResults',function(req,res){
+  res.redirect('/poll/receiveResults');
+  });
 // for deleting the polls by verified user
 
 router.post('/delete/:polltitle', function(req, res) {
