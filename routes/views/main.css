@@ -256,7 +256,7 @@ hr {
 
 footer {
   position: relative;
-  bottom: 20px ;
+  padding: 20px 0px ;
   top: 50px ;
   left: 0 ;
   width: 100% ;
