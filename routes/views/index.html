@@ -2,10 +2,18 @@
   <head>
     <link rel = "stylesheet" href="main.css">
     <title>Pollroll </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @media only screen and (max-width: 900px) {
+          .userstories {
+              width: 40vw;
+            }
+      }
+    </style>
   </head>
   <body>
-    <div id = "upperheader">
-      <p id = "titlename">Pollroll</p>
+    <div id = "upperheader" data-position="fixed">
+      <a href="https://pollroll.herokuapp.com"><p class = "titlename">Pollroll</p>
       <ul class="upperbuttons">
         <li><a id = "login" href = "/login" class="upperbutton1">Login</a></li>
         <li><a id = "signup" href = "/signup" class="upperbutton2">SignUp</a></li>
@@ -17,6 +25,26 @@
     <div id = "unauthorizedpollview">
       <a id = "unauthorized" href="/udashboard">See active polls </a>
     </div>
+
+    <ul id = "userstories" style="background-color: #f3f3f3; border-radius: 10px; font-family: 'Poiret One'">
+      <li class="userstories">
+        <img src="svg/005-elections.svg" width="50px",height="50px"><h2 style="font-family: 'Poiret One'">Vote</h2>
+        <p>You can see and vote on everybody's polls.<br>Have you say in shaping an opinion</p>
+      </li>
+      <li class="userstories">
+        <img src="svg/004-add-documents.svg" width="50px",height="50px"><h2 style="font-family: 'Poiret One'">Create </h2>
+        <p> Create your own polls to get public opinion. <br>Conduct polls free of cost.
+        <br>Get insights and results of your polls.</p>
+      </li>
+      <li class = "userstories">
+        <img src="svg/003-share.svg" width="50px",height="50px"><h2 style="font-family: 'Poiret One'"> Share </h2>
+        <p> We provide you free unique 'Share Link' for your polls.<br> Share your polls with your friends and everyone else. </p>
+      </li>
+      <li class="userstories">
+        <img src="svg/001-descendant-graphic.svg" width="50px",height="50px"><h2 style="font-family: 'Poiret One'">View  </h2>
+        <p> View polls of other users. <br> Vote on them and feel free to add other options if your do not match with the given options.</p>
+      </li>
+    </ul>
     <footer> &copy; Copyright <a href="https://www.linkedin.com/in/harshvardhankumar" style="color:green">Harsh Vardhan Kumar</a></footer>
   </body>
 </html>

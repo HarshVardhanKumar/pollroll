@@ -6,10 +6,12 @@ html
       include polllisthandler.js
     script(src="https://code.jquery.com/jquery-1.11.3.min.js")
   body
-  #upperheader
+  div#upperheader(data-position="fixed")
+    a(href="https://pollroll.herokuapp.com")
+      p(class="titlename") Pollroll
     ul(class="upperbuttons")
       li: a#login(href='/login') Login
       li: a#logout(href='/signup') Signup
   #pollList
-  footer &copy; 
+  footer &copy;
     a(href="https://www.linkedin.com/in/harshvardhankumar",style="color:green") Harsh Vardhan Kumar

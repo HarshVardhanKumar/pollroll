@@ -7,6 +7,8 @@ html
     title Pollroll-SignUp
   body
     div(id="upperheader")
+      a(href="https://pollroll.herokuapp.com")
+        p(class="titlename") Pollroll
       ul(class="upperbuttons")
         li: a(id = "logout" href = "/login") Login
     h4(class="notification")=message
@@ -25,5 +27,5 @@ html
         input(type="password",id="password",name="password",placeholder="Enter a strong password",oninput="testPassword()")
         br
         input(type="submit",onclick="testSubmit()")
-    footer &copy; 
+    footer &copy;
       a(href="https://www.linkedin.com/in/harshvardhankumar",style="color:green") Harsh Vardhan Kumar

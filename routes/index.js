@@ -117,6 +117,11 @@ router.get('/poll/:polltitle', function(req, res) {
   }
   poll.processRequestForPolls(req,res,polltitle) ;
 })
+router.get('/svg/:svgname', function(req, res) {
+  var name = req.params.svgname ;
+  console.log(name) ;
+  res.sendFile(__dirname+'/views/svg/'+name) ;
+})
 // called after the verification of signup form
 router.post('/successSignup', function(req, res, next) {
   signuplogin.processSignupForm(req, res) ; // creates a new user in the database

@@ -20,12 +20,13 @@ label {
 }
 /*Used in the upper portion of the page */
 #upperheader {
-  display: absolute ;
+  position:fixed ;
+  display: table;
   left: 0 ;
   font-size: 1em ;
   top: 0 ;
   width: 100% ;
-  background-color: #f2f2f2 ;
+  background-color: rgba(242, 242, 242, 0.8) ;
   box-shadow: 5px 5px 5px #aaa, -5px 5px 5px #aaa, -5px -5px 5px #aaa , 5px -5px 5px #aaa ;
 }
 /* used in the upperheader and contains the login and signup buttons*/
@@ -34,14 +35,15 @@ label {
   display: inline-block;
   border-radius: 5px ;
   margin-right: 20px ;
-  background-color: green ;
+  color: blue;
+  border: solid 2px green ;
   padding: 10px 20px ;
   cursor: pointer;
 }
 .upperbuttons {
-  display: relative ;
+  position: relative ;
   margin-left: 70% ;
-  padding: 1.5% 0;
+  padding: 0.5% 0;
 }
 select {
   background-color: white ;
@@ -57,9 +59,9 @@ select {
   cursor: pointer;
 }
 .upperbuttonsleft {
-  display: relative ;
+  position: relative ;
   margin-left: 1% ;
-  padding: 1.5% 0;
+  margin: 7% ;
 }
 #useroptions {
   margin: auto;
@@ -68,9 +70,11 @@ select {
 
 a {
   font-size: 0.8em ;
-  color: white ;
   text-decoration: none ;
   margin: auto;
+}
+.upperbuttonsleft a {
+  color: white ;
 }
 
 ul li {
@@ -182,13 +186,13 @@ canvas {
   width: 20vw ;
 }
 /* Used to display the name of the website*/
-#titlename {
+.titlename {
   float: left;
   font-size: 2em ;
   text-align: center;
   margin: auto;
   margin-left: 50px ;
-  padding: 1% ;
+  padding: 0.5% ;
   color: brown ;
 }
 /* The login form*/
@@ -212,11 +216,16 @@ canvas {
   margin: auto;
   text-align: center;
   padding: 20px ;
+  margin-top: 5% ;
 }
 .mypolls {
   list-style-type: none ;
   margin: 20px ;
   background-color: #f2f2f2 ;
+}
+.poll:hover {
+  background-color: #aaa ;
+  color: white ;
 }
 hr {
   width: 5px ;
@@ -256,6 +265,7 @@ hr {
 
 footer {
   position: relative;
+  clear: both;
   padding: 20px 0px ;
   top: 50px ;
   left: 0 ;
@@ -264,4 +274,13 @@ footer {
   text-align: center;
   border: none ;
   background-color: #f2f2f2 ;
+}
+.userstories {
+  width: 20vw;
+  float: left;
+  background-color: #e6ebff;
+  padding: 10px;
+  margin: 5px;
+  height: 280px;
+  padding-top: 50px;
 }
