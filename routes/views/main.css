@@ -20,7 +20,7 @@ label {
 }
 /*Used in the upper portion of the page */
 #upperheader {
-  display: table;
+  display: block;
   left: 0 ;
   font-size: 1em ;
   top: 0 ;
