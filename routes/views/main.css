@@ -192,7 +192,7 @@ canvas {
   color: brown ;
 }
 /* The login form*/
-#loginform, #signupform {
+.form {
   text-align: center;
   margin: auto;
   border-radius: 5px;

@@ -2,13 +2,14 @@ html
   include head.pug
   body
   #upperheader
-    ul
-      li: =user
+    ul(class="upperbuttons")
+      li: a(href="/dashboard") #{user}
       li: a#logout(href='/logout') Logout
-  #options
+  div(class="form")
     form(action='/createPoll',method='post', enctype='multipart/form-data')
       h1 Make a new Poll!
-      label(for='title') Title
+      br
+      label(for='title') Title: 
       input(
         type='text',
         name='title',
@@ -16,6 +17,7 @@ html
       )
       br
       label(for='options') Options: (Separated by semicolon)
+      br
       input(
         type='text',
         name='options',

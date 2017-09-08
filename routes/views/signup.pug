@@ -8,9 +8,9 @@ html
   body
     div(id="upperheader")
       ul(class="upperbuttons")
-        li: a(id = "logout" href = "/logout") Logout
+        li: a(id = "logout" href = "/login") Login
     h4(class="notification")=message
-    div(id="signupform")
+    div(class="form")
       form(action="/successSignup",method="post",enctype="multipart/form-data")
         label(for="Name") Name :
         input(type="text",id="Name",name="Name",placeholder="Enter your full name")

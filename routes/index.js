@@ -138,10 +138,13 @@ router.post('/pollResult', function(req, res, next) {
   console.log('received json is '+JSON.stringify(req.body)) ;
 });
 
-router.post('/poll/receiveResults', function(req, res, next) {
+router.post('/receiveResults', function(req, res, next) {
   console.log("received results is "+JSON.stringify(req.body)) ;
   poll.updatePollResults(req, res, req.body) ;
 });
+router.post('/poll/receiveResults', function(req, res, next) {
+  res.redirect('/receiveResults') ;
+})
 // for deleting the polls by verified user
 
 router.post('/delete/:polltitle', function(req, res) {
