@@ -1,5 +1,5 @@
 // this file has methods for controlling the front-end view of the viewpoll.pug
-let baseurl = "https://pollroll.herokuapp.com" ;
+
 function sendSelectedOption() {
   var value = document.getElementById('select').value ;
   var title = document.getElementsByTagName('h1')[0].innerHTML ;
@@ -17,7 +17,7 @@ function sendSelectedOption() {
   console.log(newv) ;
 
   $.ajax({
-    url : baseurl+'/poll/receiveResults',
+    url : '/receiveResults',
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify(datav),
