@@ -1,5 +1,4 @@
 var express = require('express');
-
 var router = express.Router();
 var signuplogin = require('./testSignupLogin') ;
 var parseurl = require('parseurl')
@@ -60,7 +59,9 @@ router.get('/dashboard', function(req, res, next) {
     res.render(__dirname+"/views/dashboard", {title: 'dashboard', message:" ", user: req.session.username}) ;
   else res.redirect('udashboard') ;
 })
-
+router.get('/poll/dashboard', function(req, res, next) {
+  res.redirect(process.env.baseurl) ;
+})
 // provides an api for the front end to get the list of available polls
 router.get('/getPolls', function(req, res, next){
     mongo.connect(mongourl, function(err, db) {
@@ -97,6 +98,10 @@ router.get('/getResults/:titleofpoll', function(req, res, next) {
   let title = req.params.titleofpoll ;
   poll.getPollResultDetails(req,res,title) ;
 })
+router.get('/poll/getResults/:titleofpoll', function(req, res, next) {
+  let title = req.params.titleofpoll ;
+  poll.getPollResultDetails(req, res, title) ;
+})
 router.get('/showMyPolls', function(req, res, next) {
   res.render(__dirname+'/views/mypolls', {user: req.session.username, message: " "}) ;
 })
@@ -107,8 +112,7 @@ router.get('/udashboard', function(req, res) {
 // for directly accessing the polls through a unique link
 router.get('/poll/:polltitle', function(req, res) {
   var polltitle = req.params.polltitle ;
-  whil
-  e(polltitle.indexOf('_')!=-1) {
+  while(polltitle.indexOf('_')!=-1) {
     polltitle = polltitle.replace("_", " ") ;
   }
   poll.processRequestForPolls(req,res,polltitle) ;
@@ -144,15 +148,12 @@ router.post('/receiveResults', function(req, res, next) {
   console.log("received results is "+JSON.stringify(req.body)) ;
   poll.updatePollResults(req, res, req.body) ;
 });
-<<<<<<< HEAD
 router.post('/poll/receiveResults', function(req, res, next) {
   res.redirect('/receiveResults') ;
 })
-=======
 router.post('/poll/poll/receiveResults',function(req,res){
   res.redirect('/poll/receiveResults');
   });
->>>>>>> 8a623d29266f448c1c5506000606f1afdee079cc
 // for deleting the polls by verified user
 
 router.post('/delete/:polltitle', function(req, res) {
