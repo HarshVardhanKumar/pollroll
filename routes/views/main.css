@@ -273,12 +273,15 @@ footer {
   border: none ;
   background-color: #f2f2f2 ;
 }
+#userstories {
+  margin: auto;
+}
 .userstories {
-  width: 20vw;
+  margin: auto;
+  width: 40vw;
   float: left;
   background-color: #e6ebff;
   padding: 10px;
-  margin: 5px;
   height: 317px;
   padding-top: 50px;
 }
