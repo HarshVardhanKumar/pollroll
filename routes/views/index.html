@@ -3,9 +3,19 @@
     <link rel = "stylesheet" href="main.css">
     <title>Pollroll </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+      window.onload = function() {
+        if(document.documentElement.clientWidth < 750) {
+          console.log('called') ;
+          let body = document.getElementsByTagName('body')[0] ;
+          body.innerHTML = "<h1 style='margin:auto; padding-top: 33%'>Please Switch to Desktop mode</h1>" ;
+        }
+      }
+    </script>
   </head>
   <body>
-    <div id = "upperheader" data-position="fixed">
+    <div id = "upperheader">
       <a href="https://pollroll.herokuapp.com"><p class = "titlename">Pollroll</p>
       <ul class="upperbuttons">
         <li><a id = "login" href = "/login" class="upperbutton1">Login</a></li>

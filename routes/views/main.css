@@ -24,6 +24,7 @@ label {
   left: 0 ;
   font-size: 1em ;
   top: 0 ;
+  width: 100% ;
   background-color: rgba(242, 242, 242, 0.8) ;
   box-shadow: 5px 5px 5px #aaa, -5px 5px 5px #aaa, -5px -5px 5px #aaa , 5px -5px 5px #aaa ;
 }
@@ -275,13 +276,15 @@ footer {
 }
 #userstories {
   margin: auto;
+  text-align: center;
+  margin-top: 50px ;
 }
 .userstories {
-  margin: auto;
   width: 40vw;
   float: left;
   background-color: #e6ebff;
   padding: 10px;
+  margin: 5px;
   height: 317px;
   padding-top: 50px;
 }
