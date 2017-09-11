@@ -56,7 +56,7 @@ module.exports.viewPoll = function(req, res, title) {
           console.log("property found is "+property) ;
         }
         if(property.toString()==="Username") {
-          req.property.pollcreater = property.toString() ;
+          req.session.pollcreater = docs[0][property] ;
         }
       }
       req.session.options = options.substring(0, options.length-1);
