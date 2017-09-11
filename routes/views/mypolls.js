@@ -7,7 +7,7 @@ function getPolls() {
     method: "GET",
     dataType: 'jsonp',
     success: function(data) {
-      console.log(data) ;
+      //console.log(data) ;
       var div = document.getElementById('pollList') ;
       let ul = document.createElement("UL") ;
       let string = "" ;
@@ -26,7 +26,7 @@ function getPolls() {
       //<li><div><div>Title</div><div>Results</div><div>ShareLink</div></div> <div><button>Delete</button></div></li>
       ul.innerHTML = string ;
       div.innerHTML+="<ul>"+string+"</ul>" ;
-      console.log(div.innerHTML) ;
+      //console.log(div.innerHTML) ;
     }
   }) ;
 }

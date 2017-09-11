@@ -14,7 +14,7 @@ function sendSelectedOption() {
   datav["result"] = final ;
   datav["title"] = title ;
   datav["new"] = newv ;
-  console.log(newv) ;
+  //console.log(newv) ;
 
   $.ajax({
     url : '/receiveResults',
@@ -43,8 +43,8 @@ function sendSelectedOption() {
               data1.push(data[property]) ;
             }
           }
-          console.log(labels1);
-          console.log(data1) ;
+          //console.log(labels1);
+          //console.log(data1) ;
 
           var ctx = document.getElementById('resultc').getContext('2d') ;
           var mychart = new Chart(ctx, {

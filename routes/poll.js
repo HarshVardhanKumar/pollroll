@@ -17,7 +17,7 @@ module.exports.createPoll = function (req, res) {
       mongo.connect(mongourl, function(err, db) {
         var collection = db.collection('pollscreated') ;
         var options = fields.options.split(';') ;
-        console.log(options) ;
+        //console.log(options) ;
         let objectpoll = {} ;
         objectpoll["title"] = fields.title.trim() ;
         objectpoll["Username"] = req.session.username.trim() ;
@@ -53,7 +53,7 @@ module.exports.viewPoll = function(req, res, title) {
       for(let property in docs[0]) {
         if(property.toString()!=="_id" && property.toString()!=="Username" && property.toString()!=="title" && property.toString()!=="options") {
           options+=property.toString()+";" ;
-          console.log("property found is "+property) ;
+          //console.log("property found is "+property) ;
         }
         if(property.toString()==="Username") {
           req.session.pollcreater = docs[0][property] ;
@@ -62,8 +62,8 @@ module.exports.viewPoll = function(req, res, title) {
       req.session.options = options.substring(0, options.length-1);
       req.session.polloptions = req.session.options.split(';') ;
 
-      console.log(title) ;
-      console.log(req.session.polloptions) ;
+      //console.log(title) ;
+      //console.log(req.session.polloptions) ;
       res.end()
       db.close() ;
     })
@@ -74,28 +74,28 @@ module.exports.updatePollResults = function(req, res, results) {
   let title1 = results["title"] ;
   let result = results["result"]+"" ;
   let newv = results["new"] ; // if new option has been added
-  console.log("result is "+result) ;
-  console.log("newv is "+newv) ;
-  console.log(typeof(result)) ;
+  //console.log("result is "+result) ;
+  //console.log("newv is "+newv) ;
+  //console.log(typeof(result)) ;
   mongo.connect(mongourl, function(err, db) {
     let collection = db.collection('pollscreated') ;
     if(newv==="false") {
       collection.update({"title" : title1}, {$inc: {[result]: 1}}, function(err, docs) {
         if(err) {
-          console.log(err) ;
+          //console.log(err) ;
         }
         db.close() ;
       })
     }
     else {
       var option = req.session.options+";"+result; // for updating the req.session.options, you must reload the poll page.
-      console.log(option) ;
-      console.log(result) ;
+      //console.log(option) ;
+      //console.log(result) ;
       collection.update({"title": title1}, {$set: {[result]: 1, "options": option}}, function(err, docs) {
         if(err) {
-          console.log(err) ;
+          //console.log(err) ;
         }
-        console.log("added"+option) ;
+        //console.log("added"+option) ;
         db.close() ;
       })
     }

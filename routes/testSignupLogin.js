@@ -41,7 +41,7 @@ function testIfUserExists(id) {
     let collection = db.collection('userforvoting') ;
     collection.find({"_id": id}).toArray(function(err, docs) {
       if(err || docs.length>0) {
-        console.log("called to test") ;
+        //console.log("called to test") ;
         return true ;
       }
       db.close() ;
