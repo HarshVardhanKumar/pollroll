@@ -22,6 +22,7 @@ router.use(function (req, res, next) {
     req.session.polltitle = "title" ; // used for rendering the viewpoll.pug
     req.session.polloptions = [] ;// used for rendering the viewpoll.pug
     req.session.options = " " ;
+    req.session.pollcreater = " " ;// called in viewPoll.pug to show who created the poll.
     req.session.usertype = "unauthorized" ; // distinguishes between the requests of an authorized and unauthorized users.
   }
   next()
@@ -74,7 +75,7 @@ router.get('/getPolls', function(req, res, next){
 });
 // this is called by front-end after posting the value of polltitle to poll.js
 router.get('/viewPoll', function(req, res, next) {
-  res.render(__dirname+"/views/viewpoll", {titlevalue: req.session.polltitle,user: req.session.username, docs: req.session.polloptions});
+  res.render(__dirname+"/views/viewpoll", {titlevalue: req.session.polltitle,user: req.session.username, docs: req.session.polloptions, pollcreater: req.session.pollcreater});
 });
 // provides the logo image
 router.get('/logo.png', function(req, res, next) {

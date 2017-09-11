@@ -55,9 +55,13 @@ module.exports.viewPoll = function(req, res, title) {
           options+=property.toString()+";" ;
           console.log("property found is "+property) ;
         }
+        if(property.toString()==="Username") {
+          req.property.pollcreater = property.toString() ;
+        }
       }
       req.session.options = options.substring(0, options.length-1);
       req.session.polloptions = req.session.options.split(';') ;
+
       console.log(title) ;
       console.log(req.session.polloptions) ;
       res.end()
