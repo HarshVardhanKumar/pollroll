@@ -2,12 +2,14 @@
 var baseurl = "pollroll.herokuapp.com/poll" ;
 window.onload = getPolls ;
 function getPolls() {
+  document.getElementById('spinner').style.display = "block" ;
   $.ajax({
     url : 'myPolls',
     method: "GET",
     dataType: 'jsonp',
     success: function(data) {
       //console.log(data) ;
+      document.getElementById('spinner').style.display = "none" ;
       var div = document.getElementById('pollList') ;
       let ul = document.createElement("UL") ;
       let string = "" ;
@@ -34,6 +36,7 @@ function getPolls() {
 function listSelect (title) {
   var data = {} ;
   data["title"] = title ;
+  document.getElementById('spinner').style.display = "block" ;
   $.ajax({
     url: 'viewPoll',
     type: 'POST',
@@ -41,6 +44,7 @@ function listSelect (title) {
     data: JSON.stringify(data),
     success: function() {
       // show some progress spinner
+      document.getElementById('spinner').style.display = "none" ;
       window.location = "/viewPoll" ;
     }
   })
@@ -52,13 +56,15 @@ function deletePoll(title) {
     title = title.replace(' ', '_') ;
   }
   data["title"] = title ;
+  document.getElementById('spinner').style.display = "block" ;
   $.ajax ({
     url: 'delete/'+title,
     type: 'POST',
     contentType: 'application/json',
     data: JSON.stringify(data),
     success: function() {
-      setTimeout(getPolls, 1000) ;
+      document.getElementById('spinner').style.display = "none" ;
+      window.location = '/dashboard' ;
     }
   })
 }

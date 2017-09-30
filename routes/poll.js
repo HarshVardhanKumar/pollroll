@@ -19,7 +19,7 @@ module.exports.createPoll = function (req, res) {
         var options = fields.options.split(';') ;
         //console.log(options) ;
         let objectpoll = {} ;
-        objectpoll["title"] = fields.title.trim() ;
+        objectpoll["title"] = replacespecialcharacters(fields.title.trim()) ;
         objectpoll["Username"] = req.session.username.trim() ;
         objectpoll["options"] = fields.options.trim() ;
         var string = "" ;

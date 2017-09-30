@@ -72,6 +72,7 @@ router.get('/getPolls', function(req, res, next){
       var collection = db.collection('pollscreated') ;
       collection.find().toArray(function(err, docs) {
         res.jsonp(docs) ;
+        console.log(docs) ;
         db.close() ;
       })
     }) ;
@@ -176,9 +177,7 @@ router.post('/delete/:polltitle', function(req, res) {
 router.post('/poll/delete/:polltitle', function(req, res) {
   let polltitle = req.params.polltitle ;
   console.log("called to delete") ;
-  while(polltitle.indexOf('_')!=-1) {
-    polltitle = polltitle.replace("_", " ") ;
-  }
+  polltitle = polltitle.replace(/_/g, " ") ;
   poll.deletePoll(req, res, polltitle)  ;
 })
 module.exports = router;
