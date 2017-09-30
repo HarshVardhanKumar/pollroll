@@ -23,6 +23,7 @@ body
       br
       input(type="submit", onclick="sendSelectedOption()")
       p This poll was created by - #{pollcreater}
+    div#spinner(class="spinner")
     div(id="results")
       canvas(id="resultc",width='200px' , height= '200px')
       a(id="voteagain",href="dashboard") See other polls

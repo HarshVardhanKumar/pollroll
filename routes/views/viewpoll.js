@@ -24,7 +24,7 @@ function sendSelectedOption() {
       // now remove the poll form and show the results.
       // Also, if user wants to revote to the poll, take him to either the welcome page for unauthorized or to the dashboard page for authorized
       document.getElementById('poll').style.display = "none" ;
-      document.getElementById('results').style.display = "block" ;
+      document.getElementById('spinner').style.display = "block" ;
       document.getElementById('pollresults').style.backgroundColor = "#fff" ;
       //now getting the results of the poll
       $.ajax( {
@@ -34,6 +34,8 @@ function sendSelectedOption() {
         success : function(data) {
           // update the results and show them.
           // it receives the whole document.
+          document.getElementById('spinner').style.display = "none" ;
+          document.getElementById('results').style.display = "block";
           var labels1 = [] ;
           var data1 = [] ;
           for(let property in data) {

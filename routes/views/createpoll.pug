@@ -9,11 +9,12 @@ html
     form(action='/createPoll',method='post', enctype='multipart/form-data')
       h1 Make a new Poll!
       br
-      label(for='title') Title: 
+      label(for='title') Title:
       input(
         type='text',
         name='title',
-        id='title'
+        id='title',
+        placeholder='Please do not include special characters (including ? and !)'
       )
       br
       label(for='options') Options: (Separated by semicolon)

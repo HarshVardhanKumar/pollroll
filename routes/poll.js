@@ -35,6 +35,10 @@ module.exports.createPoll = function (req, res) {
     form.parse(req);
 }
 
+function replacespecialcharacters(str) {
+  return str.replace(/[*&!@#$^%*()<>?/{}[]|\₹]+/g , "") ;
+}
+
 module.exports.viewPoll = function(req, res, title) {
   mongo.connect(mongourl, function(err, db) {
     var collection = db.collection('pollscreated') ;
@@ -105,15 +109,21 @@ module.exports.updatePollResults = function(req, res, results) {
 }
 
 module.exports.getPollResultDetails = function(req, res, title) {
+  console.log('title is '+title) ;
   mongo.connect(mongourl, function(err, db) {
     let collection = db.collection('pollscreated') ;
     collection.find({"title": title}).toArray(function(err, docs) {
       if(err) {
         res.end() ;
         db.close() ;
+        console.log('some error occured') ;
       }
-      res.jsonp(docs[0]) ;
-      db.close() ;
+      else {
+        console.log('doc found') ;
+        console.log(docs) ;
+        res.jsonp(docs[0]) ;
+        db.close() ;
+      }
     })
   })
 }
@@ -142,9 +152,11 @@ module.exports.processRequestForPolls = function(req, res, polltitle) {
 module.exports.deletePoll = function(req, res, polltitle) {
   mongo.connect(mongourl, function(err, db) {
     let collection = db.collection('pollscreated') ;
+    console.log("polltitle is "+polltitle) ;
     collection.remove({"title": polltitle}, function(err, data) {
       if(err) {
         // cannot be removed ;
+        console.log("cannot be deleted") ;
       }
       else {
         res.end() ;

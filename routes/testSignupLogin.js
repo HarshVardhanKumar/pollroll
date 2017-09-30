@@ -60,7 +60,7 @@ module.exports.processLoginForm = function(req, res) {
       // for finding the user information for login
       collection = db.collection('userforvoting') ;
       // finding the user name exists or not
-      collection.find({"Username": fields.Username}).toArray(function(err, docs) {
+      collection.find({"_id": fields.Username}).toArray(function(err, docs) { // here, fields.Username has the value of Email_id
         if(err || docs[0]===undefined) {
           req.session.destroy(function(err) { // after logout, destroy session
             res.render(__dirname+'/views/login', {message: "The user does not exist"}) ;
@@ -69,10 +69,13 @@ module.exports.processLoginForm = function(req, res) {
         }
         else {
           // matching the password
+          console.log("username is "+fields.Username) ;
           var password = fields.password ;
+          console.log("password is "+password) ;
+          console.log(docs) ;
           if(docs[0]["password"] === password) {
             req.session.name = docs[0]["name"] ;
-            req.session.username = fields.Username ;
+            req.session.username = docs[0]["Username"];
             db.close() ;
             req.session.usertype = "authorized" ;
             res.render(__dirname+"/views/dashboard", {title: docs[0]["name"], message:" ", user: docs[0]["name"]}) ;

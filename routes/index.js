@@ -52,6 +52,9 @@ router.get('/logout', function(req, res, next) {
     })
 });
 router.get('/createPoll', function(req, res, next) {
+    if(req.session.usertype==="unauthorized") {
+      res.sendFile(__dirname+'/views/index.html') ;
+    }
     res.render(__dirname+'/views/createpoll', {title: req.session.name ,user: req.session.name})
     // used to create a new poll by a loggedin user
 })
@@ -164,6 +167,15 @@ router.post('/poll/poll/receiveResults',function(req,res){
 
 router.post('/delete/:polltitle', function(req, res) {
   let polltitle = req.params.polltitle ;
+  console.log("called to delete") ;
+  while(polltitle.indexOf('_')!=-1) {
+    polltitle = polltitle.replace("_", " ") ;
+  }
+  poll.deletePoll(req, res, polltitle)  ;
+})
+router.post('/poll/delete/:polltitle', function(req, res) {
+  let polltitle = req.params.polltitle ;
+  console.log("called to delete") ;
   while(polltitle.indexOf('_')!=-1) {
     polltitle = polltitle.replace("_", " ") ;
   }
